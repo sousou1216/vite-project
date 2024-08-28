@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 type Common = {
@@ -78,14 +78,17 @@ export const CreateUser = ({userList, setUserList}: Props) => {
   })
   const [selectUser, setSelectUser] = useState<'Student' | 'Mentor' | ''>('')
 
+  const {name, role, email, age, postCode, phone, hobbies, url, studyMinutes, taskCode, studyLangs, score, experienceDays, useLangs, availableStartCode, availableEndCode} = formData
+
   const navigate = useNavigate()
 
-  const onChangeSelectUser = (e: any) => {
-    setSelectUser(e.target.value)
+  const onChangeSelectUser = (e: ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value as '' | 'Student' | 'Mentor'
+    setSelectUser(value)
     setFormData({...formData, role: e.target.value === 'Student' ? 'student' : 'mentor'})
   }
 
-  const onChange = (e: any) => {
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target
     if (name === 'hobbies' || name === 'studyLangs' || name === 'useLangs') {
       setFormData({...formData, [name]: [value]})
@@ -94,7 +97,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
     }
   }
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     const newUserList: All[] = [...userList, formData]
     setUserList(newUserList)
@@ -121,7 +124,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='text'
               name='name'
-              value={formData.name}
+              value={name}
               onChange={onChange}
               required
             />
@@ -130,7 +133,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='email'
               name='email'
-              value={formData.email}
+              value={email}
               onChange={onChange}
               required
             />
@@ -139,7 +142,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='number'
               name='age'
-              value={formData.age}
+              value={age}
               onChange={onChange}
               required
             />
@@ -148,7 +151,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='text'
               name='postCode'
-              value={formData.postCode}
+              value={postCode}
               onChange={onChange}
               required
             />
@@ -157,7 +160,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='text'
               name='phone'
-              value={formData.phone}
+              value={phone}
               onChange={onChange}
               required
             />
@@ -166,7 +169,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='text'
               name='hobbies'
-              value={formData.hobbies}
+              value={hobbies}
               onChange={onChange}
               required
             />
@@ -175,7 +178,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='text'
               name='url'
-              value={formData.url}
+              value={url}
               onChange={onChange}
               required
             />
@@ -187,7 +190,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='number'
               name='studyMinutes'
-              value={formData.studyMinutes}
+              value={studyMinutes}
               onChange={onChange}
               required
             />
@@ -196,7 +199,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='number'
               name='taskCode'
-              value={formData.taskCode}
+              value={taskCode}
               onChange={onChange}
               required
             />
@@ -205,7 +208,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='text'
               name='studyLangs'
-              value={formData.studyLangs}
+              value={studyLangs}
               onChange={onChange}
               required
             />
@@ -214,7 +217,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='number'
               name='score'
-              value={formData.score}
+              value={score}
               onChange={onChange}
               required
             />
@@ -226,7 +229,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='number'
               name='experienceDays'
-              value={formData.experienceDays}
+              value={experienceDays}
               onChange={onChange}
               required
             />
@@ -235,7 +238,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='text'
               name='useLangs'
-              value={formData.useLangs}
+              value={useLangs}
               onChange={onChange}
               required
             />
@@ -244,7 +247,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='number'
               name='availableStartCode'
-              value={formData.availableStartCode}
+              value={availableStartCode}
               onChange={onChange}
               required
             />
@@ -253,7 +256,7 @@ export const CreateUser = ({userList, setUserList}: Props) => {
               className='form-control mb-2'
               type='number'
               name='availableEndCode'
-              value={formData.availableEndCode}
+              value={availableEndCode}
               onChange={onChange}
               required
             />

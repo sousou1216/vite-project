@@ -76,6 +76,10 @@ export const UserList = ({userList, setUserList}: Props) => {
       setSortOrderStudyMinutes('asc')
     }
     const sortUserList = [...studentList].sort((a, b) => {
+      // nullとundefinedの警告を回避
+      if (a.studyMinutes == null) return 1
+      if (b.studyMinutes == null) return -1
+
       if (sortOrderStudyMinutes === 'asc') {
         // 降順 昇順の逆
         return b.studyMinutes - a.studyMinutes
@@ -94,6 +98,9 @@ export const UserList = ({userList, setUserList}: Props) => {
       setSortOrderScore('asc')
     }
     const sortUserList = [...studentList].sort((a, b) => {
+      if (a.score == null) return 1
+      if (b.score == null) return -1
+
       if (sortOrderScore === 'asc') {
         return b.score - a.score
       } else {
@@ -110,6 +117,9 @@ export const UserList = ({userList, setUserList}: Props) => {
       setSortOrderExperienceDays('asc')
     }
     const sortUserList = [...mentorList].sort((a, b) => {
+      if (a.experienceDays == null) return 1
+      if (b.experienceDays == null) return -1
+
       if (sortOrderExperienceDays === 'asc') {
         return b.experienceDays - a.experienceDays
       } else {
@@ -210,7 +220,10 @@ export const UserList = ({userList, setUserList}: Props) => {
                   <td>{user.studyLangs?.join(', ')}</td>
                   <td>{user.score}</td>
                   <td>
-                    {userList.filter((mentor) => mentor.role === 'mentor' && user.taskCode >= mentor.availableStartCode && user.score <= mentor.availableEndCode)
+                    {userList.filter((mentor) => mentor.role === 'mentor' &&
+                      (user.taskCode != null && mentor.availableStartCode != null && mentor.availableEndCode != null) &&
+                      user.taskCode >= mentor.availableStartCode &&
+                      user.taskCode <= mentor.availableEndCode)
                     .map((mentor) => mentor.name)?.join(', ')}
                   </td>
                   <td>{user.experienceDays}</td>
@@ -218,7 +231,10 @@ export const UserList = ({userList, setUserList}: Props) => {
                   <td>{user.availableStartCode}</td>
                   <td>{user.availableEndCode}</td>
                   <td>
-                    {userList.filter((student) => student.role === 'student' && student.taskCode >= user.availableStartCode && student.taskCode <= user.availableEndCode)
+                    {userList.filter((student) => student.role === 'student' &&
+                      (student.taskCode != null && user.availableStartCode != null && user.availableEndCode != null) &&
+                      student.taskCode >= user.availableStartCode &&
+                      student.taskCode <= user.availableEndCode)
                     .map((student) => student.name)?.join(', ')}
                   </td>
                 </tr>
@@ -243,7 +259,10 @@ export const UserList = ({userList, setUserList}: Props) => {
                   <td>{user.studyLangs?.join(', ')}</td>
                   <td>{user.score}</td>
                   <td>
-                    {userList.filter((mentor) => mentor.role === 'mentor' && user.taskCode >= mentor.availableStartCode && user.taskCode <= mentor.availableEndCode)
+                    {userList.filter((mentor) => mentor.role === 'mentor' &&
+                      (user.taskCode != null && mentor.availableStartCode != null && mentor.availableEndCode != null) &&
+                      user.taskCode >= mentor.availableStartCode &&
+                      user.taskCode <= mentor.availableEndCode)
                     .map((mentor) => mentor.name)?.join(', ')}
                   </td>
                 </tr>
@@ -268,7 +287,10 @@ export const UserList = ({userList, setUserList}: Props) => {
                   <td>{user.availableStartCode}</td>
                   <td>{user.availableEndCode}</td>
                   <td>
-                    {userList.filter((student) => student.role === 'student' && student.taskCode >= user.availableStartCode && student.taskCode <= user.availableEndCode)
+                    {userList.filter((student) => student.role === 'student' &&
+                      (student.taskCode != null && user.availableStartCode != null && user.availableEndCode != null) &&
+                      student.taskCode >= user.availableStartCode &&
+                      student.taskCode <= user.availableEndCode)
                     .map((student) => student.name)?.join(', ')}
                   </td>
                 </tr>
